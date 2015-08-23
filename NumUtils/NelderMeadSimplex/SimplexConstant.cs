@@ -8,7 +8,12 @@ namespace NumUtils.NelderMeadSimplex
     {
         private double _value;
         private double _initialPerturbation;
-
+        /// <summary>
+        /// to set up the simplexConstant. this is equivalent to the paramenter set up
+        /// pertubation is used to 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="initialPerturbation"></param>
         public SimplexConstant(double value, double initialPerturbation)
         {
             _value = value;
