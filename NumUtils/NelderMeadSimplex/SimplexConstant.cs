@@ -35,5 +35,12 @@ namespace NumUtils.NelderMeadSimplex
             get { return _initialPerturbation; }
             set { _initialPerturbation = value; }
         }
+
+        public string ToString()
+        {
+            string ss = "value:" + _value;
+            ss = ss + ";initialPer:" + _initialPerturbation;
+            return ss;
+        }
     }
 }

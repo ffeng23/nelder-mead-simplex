@@ -21,10 +21,15 @@ namespace NumUtils.NelderMeadSimplex
 
             if (simplexConstants == null)
                 throw new InvalidOperationException("SimplexConstants must be initialized");
-
+#if DEBUG   //this is the coniditional compilation symbols in the project property >>build section
+            Console.Write("inside nelder mead regression:");
+#endif
             // create the initial simplex
             int numDimensions = simplexConstants.Length;
             int numVertices = numDimensions + 1;
+#if DEBUG
+            Console.Write("numVertices: {0}", numVertices );
+#endif
             Vector[] vertices = _initializeVertices(simplexConstants);
             double[] errorValues = new double[numVertices];
 
@@ -33,7 +38,9 @@ namespace NumUtils.NelderMeadSimplex
             ErrorProfile errorProfile;
 
             errorValues = _initializeErrorValues(vertices, objectiveFunction);
-
+#if DEBUG
+            Console.WriteLine("\n=====Start doing the loop to optimize..........");
+#endif
             // iterate until we converge, or complete our permitted number of iterations
             while (true)
             {
@@ -45,10 +52,15 @@ namespace NumUtils.NelderMeadSimplex
                     terminationReason = TerminationReason.Converged;
                     break;
                 }
-
+#if DEBUG
+                Console.WriteLine("not converged");
+#endif
                 // attempt a reflection of the simplex
                 double reflectionPointValue = _tryToScaleSimplex(-1.0, ref errorProfile, vertices, errorValues, objectiveFunction);
                 ++evaluationCount;
+#if DEBUG
+                Console.WriteLine("Got a reflection point");
+#endif
                 if (reflectionPointValue <= errorValues[errorProfile.LowestIndex])
                 {
                     // it's better than the best point, so attempt an expansion of the simplex
@@ -78,6 +90,7 @@ namespace NumUtils.NelderMeadSimplex
                     break;
                 }
             }
+            //Console.WriteLine("");
             RegressionResult regressionResult = new RegressionResult(terminationReason,
                                 vertices[errorProfile.LowestIndex].Components, errorValues[errorProfile.LowestIndex], evaluationCount);
             return regressionResult;
@@ -95,6 +108,9 @@ namespace NumUtils.NelderMeadSimplex
             for (int i = 0; i < vertices.Length; i++)
             {
                 errorValues[i] = objectiveFunction(vertices[i].Components);
+#if DEBUG
+                Console.Write(i + ":" + vertices[i]+"==");
+#endif
             }
             return errorValues;
         }
@@ -187,8 +203,14 @@ namespace NumUtils.NelderMeadSimplex
                 double scale = simplexConstants[i].InitialPerturbation;
                 Vector unitVector = new Vector(numDimensions);
                 unitVector[i] = 1;
-                vertices[i + 1] = p0.Add(unitVector.Multiply(scale)); 
+                vertices[i + 1] = p0.Add(unitVector.Multiply(scale));
+#if DEBUG
+                Console.Write(i+":" + vertices[i + 1].ToString() + "==");
+#endif
             }
+#if DEBUG
+            Console.WriteLine("");
+#endif
             return vertices;
         }
 
@@ -205,7 +227,9 @@ namespace NumUtils.NelderMeadSimplex
         {
             // find the centroid through which we will reflect
             Vector centroid = _computeCentroid(vertices, errorProfile);
-
+#if DEBUG
+            Console.WriteLine("centroid:" + centroid.ToString());
+#endif
             // define the vector from the centroid to the high point
             Vector centroidToHighPoint = vertices[errorProfile.HighestIndex].Subtract(centroid);
 
