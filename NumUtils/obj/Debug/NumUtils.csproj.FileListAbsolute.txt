@@ -1,0 +1,5 @@
+E:\MSI_software\NelderMead\nelder-mead-simplex\NumUtils\bin\Debug\NelderMeadSimplex.dll
+E:\MSI_software\NelderMead\nelder-mead-simplex\NumUtils\bin\Debug\NelderMeadSimplex.pdb
+E:\MSI_software\NelderMead\nelder-mead-simplex\NumUtils\obj\Debug\ResolveAssemblyReference.cache
+E:\MSI_software\NelderMead\nelder-mead-simplex\NumUtils\obj\Debug\NelderMeadSimplex.dll
+E:\MSI_software\NelderMead\nelder-mead-simplex\NumUtils\obj\Debug\NelderMeadSimplex.pdb

@@ -10,3 +10,7 @@
 
 
 	To disable this, simply remove this "DEBUG" or change it to other symbol
+
+
+	*************NOte:
+	this one has been depricated. Please go to the /FengLib/NumUtils for updates.!!!!!!!!!

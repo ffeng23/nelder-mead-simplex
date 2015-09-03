@@ -38,12 +38,18 @@ namespace NumUtils.NelderMeadSimplex
             ErrorProfile errorProfile;
 
             errorValues = _initializeErrorValues(vertices, objectiveFunction);
-#if DEBUG
-            Console.WriteLine("\n=====Start doing the loop to optimize..........");
+#if DEBUG || LOG_MODE
+            Console.WriteLine("\n=====Start the Nelder-Mead Algorithm for Optimization..........");
 #endif
             // iterate until we converge, or complete our permitted number of iterations
             while (true)
             {
+#if LOG_MODE
+                if (evaluationCount % 100 == 0)
+                {
+                    Console.Write("......"+evaluationCount+ "/"+maxEvaluations );
+                }
+#endif
                errorProfile = _evaluateSimplex(errorValues);
 
                 // see if the range in point heights is small enough to exit
@@ -90,7 +96,9 @@ namespace NumUtils.NelderMeadSimplex
                     break;
                 }
             }
-            //Console.WriteLine("");
+#if LOG_MODE
+            Console.WriteLine("Done!!");
+#endif
             RegressionResult regressionResult = new RegressionResult(terminationReason,
                                 vertices[errorProfile.LowestIndex].Components, errorValues[errorProfile.LowestIndex], evaluationCount);
             return regressionResult;
